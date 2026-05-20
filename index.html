@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Siddarth Gopalakrishnan — Filmmaker</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #F5F0E8;
+    --dark: #0E0D0B;
+    --charcoal: #1C1A16;
+    --gold: #C8A84B;
+    --gold-light: #E8C96A;
+    --muted: #6B6558;
+    --text: #F0EBE1;
+    --text-dim: #9C9080;
+    --border: rgba(200,168,75,0.2);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--dark);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 1.2rem 3rem;
+    display: flex; justify-content: space-between; align-items: center;
+    background: linear-gradient(to bottom, rgba(14,13,11,0.95), transparent);
+    backdrop-filter: blur(2px);
+  }
+  .nav-logo {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; letter-spacing: 0.25em;
+    color: var(--gold); text-transform: uppercase;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--text-dim); text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 0 3rem 5rem;
+    position: relative;
+    background:
+      radial-gradient(ellipse at 70% 30%, rgba(200,168,75,0.07) 0%, transparent 60%),
+      linear-gradient(160deg, #0E0D0B 60%, #1a1508 100%);
+    overflow: hidden;
+  }
+
+  .hero-bg-text {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(120px, 20vw, 220px);
+    font-weight: 700; color: rgba(200,168,75,0.04);
+    white-space: nowrap; pointer-events: none; user-select: none;
+    letter-spacing: -0.02em;
+  }
+
+  .hero-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 0.35em;
+    color: var(--gold); text-transform: uppercase;
+    margin-bottom: 1.2rem;
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .hero-eyebrow::before {
+    content: ''; display: block; width: 40px; height: 1px;
+    background: var(--gold);
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(52px, 8vw, 100px);
+    font-weight: 400; line-height: 0.95;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.2em;
+  }
+  h1 em { font-style: italic; color: var(--gold); }
+
+  .hero-subtitle {
+    font-size: 13px; letter-spacing: 0.2em;
+    color: var(--text-dim); text-transform: uppercase;
+    margin-bottom: 2.5rem;
+    font-family: 'DM Mono', monospace;
+  }
+
+  .hero-cta {
+    display: flex; gap: 1.5rem; align-items: center;
+  }
+  .btn-primary {
+    background: var(--gold); color: var(--dark);
+    padding: 0.8rem 2rem; font-size: 11px;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    text-decoration: none; font-weight: 500;
+    transition: background 0.2s, transform 0.15s;
+    font-family: 'DM Mono', monospace;
+  }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+  .btn-ghost {
+    color: var(--text-dim); font-size: 11px;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    text-decoration: none;
+    font-family: 'DM Mono', monospace;
+    display: flex; align-items: center; gap: 0.5rem;
+    transition: color 0.2s;
+  }
+  .btn-ghost:hover { color: var(--gold); }
+  .btn-ghost::after { content: '↗'; font-size: 14px; }
+
+  /* FILM STRIP DIVIDER */
+  .filmstrip {
+    width: 100%; height: 48px;
+    background: var(--charcoal);
+    border-top: 2px solid var(--border);
+    border-bottom: 2px solid var(--border);
+    display: flex; align-items: center; overflow: hidden;
+    position: relative;
+  }
+  .filmstrip-holes {
+    display: flex; gap: 0; flex-shrink: 0;
+  }
+  .hole {
+    width: 28px; height: 20px;
+    border: 1.5px solid rgba(200,168,75,0.25);
+    margin: 0 6px;
+    border-radius: 3px;
+    flex-shrink: 0;
+  }
+  .filmstrip-label {
+    position: absolute; left: 50%; transform: translateX(-50%);
+    font-family: 'DM Mono', monospace;
+    font-size: 9px; letter-spacing: 0.4em;
+    color: var(--gold); text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  /* SECTIONS */
+  section { padding: 6rem 3rem; }
+
+  .section-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 0.35em;
+    color: var(--gold); text-transform: uppercase;
+    margin-bottom: 1rem;
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .section-eyebrow::before {
+    content: ''; display: block; width: 24px; height: 1px;
+    background: var(--gold);
+  }
+
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 4vw, 52px);
+    font-weight: 400; line-height: 1.1;
+    margin-bottom: 0.3em;
+  }
+  h2 em { font-style: italic; color: var(--gold); }
+
+  /* ABOUT */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+    margin-top: 3rem;
+  }
+  .about-text p {
+    font-size: 16px; line-height: 1.8;
+    color: rgba(240,235,225,0.8);
+    margin-bottom: 1.2rem;
+  }
+  .about-stats {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1.5px;
+  }
+  .stat-cell {
+    background: var(--charcoal);
+    padding: 1.8rem 1.5rem;
+    border: 0.5px solid var(--border);
+  }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 48px; font-weight: 400;
+    color: var(--gold); line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+  .stat-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px; letter-spacing: 0.3em;
+    color: var(--text-dim); text-transform: uppercase;
+  }
+
+  /* EXPERIENCE */
+  .exp-list { margin-top: 3rem; }
+  .exp-item {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 3rem;
+    padding: 2.5rem 0;
+    border-top: 0.5px solid var(--border);
+    transition: background 0.2s;
+  }
+  .exp-item:last-child { border-bottom: 0.5px solid var(--border); }
+  .exp-meta {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 0.2em;
+    color: var(--text-dim); text-transform: uppercase;
+    line-height: 1.8;
+  }
+  .exp-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px; font-weight: 400;
+    margin-bottom: 0.4rem;
+  }
+  .exp-company {
+    color: var(--gold);
+    font-size: 12px; letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-family: 'DM Mono', monospace;
+    margin-bottom: 0.8rem;
+  }
+  .exp-desc {
+    font-size: 14px; color: rgba(240,235,225,0.65);
+    line-height: 1.75;
+  }
+
+  /* SKILLS */
+  .skills-section { background: var(--charcoal); }
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5px;
+    margin-top: 3rem;
+  }
+  .skill-card {
+    background: var(--dark);
+    padding: 2rem 1.8rem;
+    border: 0.5px solid var(--border);
+    transition: border-color 0.2s;
+  }
+  .skill-card:hover { border-color: rgba(200,168,75,0.5); }
+  .skill-icon {
+    font-size: 24px; margin-bottom: 1rem;
+    color: var(--gold);
+  }
+  .skill-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px; margin-bottom: 0.6rem;
+  }
+  .skill-desc {
+    font-size: 13px; color: var(--text-dim); line-height: 1.7;
+  }
+  .skill-tags {
+    display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1rem;
+  }
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px; letter-spacing: 0.15em;
+    color: var(--gold);
+    border: 0.5px solid rgba(200,168,75,0.3);
+    padding: 3px 8px;
+    text-transform: uppercase;
+  }
+
+  /* SOFTWARE */
+  .software-row {
+    display: flex; flex-wrap: wrap; gap: 1rem;
+    margin-top: 2.5rem;
+  }
+  .software-pill {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 0.2em;
+    color: var(--text-dim); text-transform: uppercase;
+    border: 0.5px solid var(--border);
+    padding: 0.6rem 1.2rem;
+    transition: all 0.2s;
+  }
+  .software-pill:hover { color: var(--gold); border-color: rgba(200,168,75,0.4); }
+
+  /* CONTACT */
+  .contact-section {
+    text-align: center;
+    background: linear-gradient(135deg, #0E0D0B 0%, #16120A 100%);
+    position: relative; overflow: hidden;
+  }
+  .contact-section::before {
+    content: '';
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(200,168,75,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .contact-section h2 { margin-bottom: 1rem; }
+  .contact-section p {
+    font-size: 15px; color: var(--text-dim); margin-bottom: 2.5rem;
+    font-family: 'DM Mono', monospace; letter-spacing: 0.05em;
+  }
+  .contact-links {
+    display: flex; gap: 2rem; justify-content: center;
+    flex-wrap: wrap;
+  }
+  .contact-link {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; letter-spacing: 0.2em;
+    color: var(--text-dim); text-transform: uppercase;
+    text-decoration: none;
+    display: flex; align-items: center; gap: 0.6rem;
+    transition: color 0.2s;
+    border-bottom: 0.5px solid transparent;
+    padding-bottom: 2px;
+  }
+  .contact-link:hover { color: var(--gold); border-color: rgba(200,168,75,0.4); }
+
+  /* FOOTER */
+  footer {
+    padding: 2rem 3rem;
+    border-top: 0.5px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .footer-text {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px; letter-spacing: 0.25em;
+    color: var(--text-dim); text-transform: uppercase;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .fade-up { animation: fadeUp 0.8s ease both; }
+  .delay-1 { animation-delay: 0.15s; }
+  .delay-2 { animation-delay: 0.3s; }
+  .delay-3 { animation-delay: 0.45s; }
+  .delay-4 { animation-delay: 0.6s; }
+
+  @keyframes scrollStrip {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  .holes-scroll {
+    display: flex; animation: scrollStrip 12s linear infinite;
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">SG — Portfolio</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-text" aria-hidden="true">FILM</div>
+  <div class="hero-eyebrow fade-up">Cinematographer · Director · Production Designer</div>
+  <h1 class="fade-up delay-1">Siddarth<br /><em>Gopalakrishnan</em></h1>
+  <p class="hero-subtitle fade-up delay-2">Vancouver Film School · Loyola College Chennai</p>
+  <div class="hero-cta fade-up delay-3">
+    <a href="#work" class="btn-primary">View Work</a>
+    <a href="https://drive.google.com/file/d/1hOwicPWDbKClAYA3gcbkMuMN9aSYhCLr/view?usp=drivesdk" class="btn-ghost" target="_blank" rel="noopener">Showreel</a>
+  </div>
+</section>
+
+<!-- FILM STRIP -->
+<div class="filmstrip" aria-hidden="true">
+  <div class="holes-scroll">
+    <div class="filmstrip-holes">
+      <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div>
+      <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div>
+      <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div>
+    </div>
+    <div class="filmstrip-holes">
+      <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div>
+      <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div>
+      <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div>
+    </div>
+  </div>
+  <div class="filmstrip-label">SIDDARTH GOPALAKRISHNAN — FILMMAKER REEL</div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-eyebrow">About</div>
+  <h2>A visual <em>storyteller</em><br />with global experience</h2>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>Film Production graduate from Vancouver Film School, Canada, with a foundation in Multimedia Animation from Loyola College, Chennai. I bring a cross-cultural perspective shaped by working with filmmakers across different countries.</p>
+      <p>My expertise spans cinematography, production design, and assistant direction — from feature films and biopics to branded content and aerial cinematography. I thrive in high-output environments where creative vision meets technical precision.</p>
+      <p>Currently in post-production on <em>Vimaana</em> — a short film showcase with a core feature concept, written, produced, and directed by myself.</p>
+    </div>
+    <div class="about-stats">
+      <div class="stat-cell">
+        <div class="stat-num">6+</div>
+        <div class="stat-label">Years in Film</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num">3</div>
+        <div class="stat-label">Feature Films</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num">10+</div>
+        <div class="stat-label">Brands Shot</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num">DGCA</div>
+        <div class="stat-label">Licensed Drone Pilot</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="work" style="background: var(--charcoal);">
+  <div class="section-eyebrow">Selected Work</div>
+  <h2>Projects &amp; <em>Experience</em></h2>
+  <div class="exp-list">
+
+    <div class="exp-item">
+      <div class="exp-meta">2025<br />Chennai, India<br />In Production</div>
+      <div>
+        <div class="exp-company">Black Box Productions</div>
+        <div class="exp-title">Assistant Director — Oho Enthan Baby &amp; GD Naidu Biopic</div>
+        <div class="exp-desc">Collaborating with director Krishna on two productions, specifically overseeing the visual language and look &amp; feel of the films through the art department.</div>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-meta">Jul–Oct 2024<br />Chennai, India</div>
+      <div>
+        <div class="exp-company">Solvable Creations</div>
+        <div class="exp-title">Videographer &amp; Cinematographer</div>
+        <div class="exp-desc">Shot commercials and social media content for brands including Hyundai, Truliv, Dantech Dental, Sree Gupta Bhavan, Midnight Sun Club, and Greenfields School. Covered both commercial shoots and event videography.</div>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-meta">2022–2023<br />Post VFS</div>
+      <div>
+        <div class="exp-company">Palampur Talkies</div>
+        <div class="exp-title">Production Executive &amp; 1st AC — The Silent Prayer</div>
+        <div class="exp-desc">Managed the camera department end-to-end. Assisted in production design, auditions, pre-production workflows, pitch document analysis, and co-ordinating the full production pipeline under DoP Ashwin Pakhrot.</div>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-meta">Jun 2019<br />– Jan 2020<br />Chennai</div>
+      <div>
+        <div class="exp-company">Indian Feature Film</div>
+        <div class="exp-title">Assistant Director — FIR</div>
+        <div class="exp-desc">Assisted in casting non-lead characters, developing production schedules, planning shoots, location scouting, and managing the armory department throughout the shoot.</div>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-meta">Post-Production<br />Independent</div>
+      <div>
+        <div class="exp-company">Personal Project</div>
+        <div class="exp-title">Director / Writer / Producer — Vimaana</div>
+        <div class="exp-desc">A 25-minute short film serving as a proof-of-concept for an original feature. Written, produced, and directed independently. Currently in post-production.</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" class="skills-section">
+  <div class="section-eyebrow">Capabilities</div>
+  <h2>Craft &amp; <em>Technical Skills</em></h2>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <div class="skill-icon">🎬</div>
+      <div class="skill-name">Direction</div>
+      <div class="skill-desc">Experienced AD in scheduling, casting, and production workflow. Directed and produced independent shorts with a feature in development.</div>
+      <div class="skill-tags">
+        <span class="tag">Short Films</span>
+        <span class="tag">Feature Dev</span>
+        <span class="tag">Location Scout</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">📷</div>
+      <div class="skill-name">Cinematography</div>
+      <div class="skill-desc">Skilled with RED Dragon EPIC 6K, Sony FS7/FS5, Sony Alpha series. Strong in composition, lens selection, LUTs, and cinematic shot design.</div>
+      <div class="skill-tags">
+        <span class="tag">RED Dragon 6K</span>
+        <span class="tag">Sony FS7</span>
+        <span class="tag">Zeiss CP.2</span>
+        <span class="tag">Cooke Primes</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">💡</div>
+      <div class="skill-name">Lighting &amp; Grip</div>
+      <div class="skill-desc">Proficient with ARRI, Mole Par HMI, Velvet Power2, and grip equipment. Capable of studio and on-location setups for films, TVCs, and branded content.</div>
+      <div class="skill-tags">
+        <span class="tag">ARRI</span>
+        <span class="tag">HMI 1.2K/1.8K</span>
+        <span class="tag">Sachtler</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🎨</div>
+      <div class="skill-name">Production Design</div>
+      <div class="skill-desc">Concept art, set and prop design, art department breakdowns, mood boards, and 3D visualization for film and commercial productions.</div>
+      <div class="skill-tags">
+        <span class="tag">Twinmotion</span>
+        <span class="tag">Maya</span>
+        <span class="tag">3ds Max</span>
+        <span class="tag">Illustrator</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🚁</div>
+      <div class="skill-name">Drone Cinematography</div>
+      <div class="skill-desc">DGCA-licensed Remote Pilot (India), trained for drones 5–25kg. Aerial cinematography for films, commercials, and tourism campaigns.</div>
+      <div class="skill-tags">
+        <span class="tag">DGCA Licensed</span>
+        <span class="tag">Aerial DP</span>
+        <span class="tag">5–25 kg</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🌐</div>
+      <div class="skill-name">Multilingual</div>
+      <div class="skill-desc">Fluent in English, Hindi, and Tamil. Adaptable to multicultural crews and international productions across different filming environments.</div>
+      <div class="skill-tags">
+        <span class="tag">English</span>
+        <span class="tag">Hindi</span>
+        <span class="tag">Tamil</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top: 3rem;">
+    <div class="section-eyebrow" style="margin-bottom: 1rem;">Software</div>
+    <div class="software-row">
+      <div class="software-pill">Premiere Pro</div>
+      <div class="software-pill">DaVinci Resolve</div>
+      <div class="software-pill">Cinema 4D</div>
+      <div class="software-pill">Twinmotion</div>
+      <div class="software-pill">Illustrator</div>
+      <div class="software-pill">Canva</div>
+      <div class="software-pill">Celtx</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact-section">
+  <div class="section-eyebrow" style="justify-content: center;">Contact</div>
+  <h2>Let's make<br /><em>something</em> together</h2>
+  <p>Available for film, commercial, and branded content projects · Chennai, India · Open to travel</p>
+  <div class="contact-links">
+    <a href="mailto:siddarthgopal.10@gmail.com" class="contact-link">✉ siddarthgopal.10@gmail.com</a>
+    <a href="tel:+917397438799" class="contact-link">✆ +91 73974 38799</a>
+    <a href="https://drive.google.com/file/d/1hOwicPWDbKClAYA3gcbkMuMN9aSYhCLr/view?usp=drivesdk" class="contact-link" target="_blank" rel="noopener">▶ Watch Showreel</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-text">© 2025 Siddarth Gopalakrishnan — Filmmaker</span>
+  <span class="footer-text">Chennai, India · Passport Valid 2029</span>
+</footer>
+
+</body>
+</html>
